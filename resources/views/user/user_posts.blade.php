@@ -27,8 +27,13 @@
                     <div class="card border border-warning">
                         <div class="card-body">
                             <div class="d-flex flex-column align-items-center text-center">
-                                <img src="{{ asset('storage/' . auth()->user()->avatar) }}" alt="Admin"
-                                    class="rounded-circle" width="250px" height="250px">
+                                @if (auth()->user()->avatar)
+                                    <img src="{{ asset('storage/' . auth()->user()->avatar) }}" alt="Admin"
+                                        class="rounded-circle" width="250px" height="250px">
+                                @else
+                                    <img src="{{ asset('storage/users_avatar/default/default.jpg') }}" alt="Admin"
+                                        class="rounded-circle" width="250px" height="250px">
+                                @endif
                                 <div class="mt-3">
                                     <h4>{{ auth()->user()->name }}</h4>
                                     <p class="text-muted font-size-sm">{{ auth()->user()->description }}</p>
@@ -49,7 +54,8 @@
                                                 alt="...">
                                             <div class="card-body">
                                                 <h4 class="card-text">{{ $post->title }}</h4>
-                                                <em>{{ $post->rubric->title }}</em>
+                                                Rubric: <em>{{ $post->rubric->title }}</em><br>
+                                                Comments: <em>{{ $post->comments_count }}</em>
                                                 <p class="card-text">{{ Str::limit($post->content, 60, '...') }}</p>
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <div class="btn-group">

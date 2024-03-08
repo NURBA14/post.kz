@@ -4,6 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 
 /**
  * @mixin Builder
@@ -11,6 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Rubric extends Model
 {
+    use HasFactory;
     protected $fillable = ["title"];
     protected $guarded = [];
 

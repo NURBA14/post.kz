@@ -27,8 +27,13 @@
                     <div class="card border border-warning">
                         <div class="card-body">
                             <div class="d-flex flex-column align-items-center text-center">
-                                <img src="{{ asset('storage/' . auth()->user()->avatar) }}" alt="Admin"
-                                    class="rounded-circle" width="250px" height="250px">
+                                @if (auth()->user()->avatar)
+                                    <img src="{{ asset('storage/' . auth()->user()->avatar) }}" alt="Admin"
+                                        class="rounded-circle" width="250px" height="250px">
+                                @else
+                                    <img src="{{ asset('storage/users_avatar/default/default.jpg') }}" alt="Admin"
+                                        class="rounded-circle" width="250px" height="250px">
+                                @endif
                                 <div class="mt-3">
                                     <h4>{{ auth()->user()->name }}</h4>
                                     <p class="text-muted font-size-sm">{{ auth()->user()->description }}</p>
@@ -56,11 +61,12 @@
                                         <h6 class="mb-0">Title</h6>
                                     </div>
                                     <div class="col-sm-9 text-secondary">
-                                        <input type="text" class="form-control form-control-sm @error('title') is-invalid @enderror"
+                                        <input type="text"
+                                            class="form-control form-control-sm @error('title') is-invalid @enderror"
                                             value="{{ $post->title }}" name="title">
-                                            @error('title')
-                                                <div class="invalid-feedback">{{ $message }}</div>
-                                            @enderror
+                                        @error('title')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <hr>
@@ -70,7 +76,8 @@
                                         <h6 class="mb-0">Content</h6>
                                     </div>
                                     <div class="col-sm-9 text-secondary">
-                                        <textarea class="form-control form-control-sm @error('content') is-invalid @enderror" name="content" id="" cols="10" rows="5">{{ $post->content }}</textarea>
+                                        <textarea class="form-control form-control-sm @error('content') is-invalid @enderror" name="content" id=""
+                                            cols="10" rows="5">{{ $post->content }}</textarea>
                                         @error('content')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -83,11 +90,11 @@
                                         <h6 class="mb-0">Img</h6>
                                     </div>
                                     <div class="col-sm-9 text-secondary">
-                                        <input class="form-control form-control-sm @error('img') is-invalid @enderror" id="img" name="img"
-                                            type="file">
-                                            @error('img')
-                                                <div class="invalid-feedback">{{ $message }}</div>
-                                            @enderror
+                                        <input class="form-control form-control-sm @error('img') is-invalid @enderror"
+                                            id="img" name="img" type="file">
+                                        @error('img')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <hr>
@@ -97,7 +104,8 @@
                                         <h6 class="mb-0">Rubric</h6>
                                     </div>
                                     <div class="col-sm-9 text-secondary">
-                                        <select class="form-control @error('rubric_id') is-invalid @enderror" name="rubric_id" id="rubric_id">
+                                        <select class="form-control @error('rubric_id') is-invalid @enderror"
+                                            name="rubric_id" id="rubric_id">
                                             <option value="{{ $post->rubric->id }}">{{ $post->rubric->title }}
                                             </option>
                                             @foreach ($rubrics as $key => $title)

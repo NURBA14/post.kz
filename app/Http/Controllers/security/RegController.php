@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\security;
 
 use App\Http\Controllers\Controller;
+use App\Mail\WelcomeMail;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class RegController extends Controller
 {
@@ -29,6 +31,7 @@ class RegController extends Controller
             "password" => Hash::make($request->password)
         ]);
         Auth::login($user);
-        return redirect()->route("mail");
+        session()->flash("success", "Вы зарестрерировались");
+        return redirect()->route("home");
     }
 }

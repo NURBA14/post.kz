@@ -31,6 +31,8 @@ class UserController extends Controller
             "avatar" => "nullable|image"
         ]);
         if ($request->hasFile("avatar")) {
+            $user = User::find(Auth()->user()->id);
+            $user->deleteAvatar(Auth()->user()->avatar);
             $folder = date("Y-m-d");
             $img = $request->file("avatar")->store("users_avatar/{$folder}");
         } else {
@@ -49,7 +51,7 @@ class UserController extends Controller
 
     public function user_posts()
     {
-        $posts = Auth::user()->posts()->with("rubric")->orderBy("created_at", "DESC")->paginate(6);
+        $posts = Auth::user()->posts()->with("rubric")->withCount("comments")->orderBy("created_at", "DESC")->paginate(6);
         $title = "MY POSTS";
         return view("user.user_posts", compact("title", "posts"));
     }

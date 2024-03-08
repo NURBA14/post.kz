@@ -26,11 +26,12 @@ class PostController extends Controller
             "rubric_id" => "required|integer",
             "img" => "nullable|image"
         ]);
+        $def_post = Post::find($id);
         if ($request->hasFile("img")) {
+            Storage::delete($def_post->img);
             $folder = date("Y-m-d");
             $img = $request->file("img")->store("post_images/{$folder}");
         }
-        $def_post = Post::find($id);
         Post::where("id", "=", $id)->update([
             "title" => $request->title,
             "content" => $request->content,
@@ -43,7 +44,7 @@ class PostController extends Controller
     public function post_delete(Request $request, $id)
     {
         $post = Post::find($id);
-        Storage::delete("$post->img");
+        Storage::delete($post->img);
         $post->delete();
         return redirect()->route("user.profile.posts");
     }

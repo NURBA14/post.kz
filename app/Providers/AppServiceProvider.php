@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Pagination\Paginator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -27,15 +28,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // Прослушка запросов и привязок
-        DB::listen(function ($query) {
-            Log::channel("sqllogs")->info($query->sql);
-            // dump($query->sql);
-            // dump($query->bindings);
-        });
-        View::composer("layouts.footer", function ($view) {
-            $view->with("rubrics", Rubric::all());
-        });
-
+        Paginator::useBootstrap();
     }
 }

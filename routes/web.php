@@ -33,6 +33,8 @@ Route::group(["middleware" => "auth"], function () {
     Route::get("/post/create", "PostController@create")->name("post.create");
     Route::post("/post/create", "PostController@store")->name("post.store");
 
+    Route::post("/comment/{post_id}/store", "CommentController@store")->name("comment.store");
+
     Route::get("/logout", "security\LoginController@logout")->name("logout");
     Route::get("/mail", "mails\MailController@welcome")->name("mail");
 });

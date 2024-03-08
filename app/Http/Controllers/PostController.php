@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Comment;
 use App\Post;
 use App\Rubric;
 use App\User;
@@ -41,9 +42,10 @@ class PostController extends Controller
 
     public function post_view($id)
     {
-        $post = Post::find($id);
+        $post = Post::with("comments")->find($id);
+        $comments = Comment::with("user")->where("post_id", "=", $id)->get();
         $title = "POST";
-        return view("pages.post", compact("title", "post"));
+        return view("pages.post", compact("title", "post", "comments"));
     }
 
 

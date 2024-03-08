@@ -17,7 +17,7 @@ class AddColumnsToUsersTable extends Migration
             $table->string("description")->nullable();
             $table->string("instagram")->default("instagram");
             $table->string("telegram")->default("telegram");
-            $table->string("avatar")->default("users_avatar/default/default.png");
+            $table->string("avatar")->nullable();
         });
     }
 
